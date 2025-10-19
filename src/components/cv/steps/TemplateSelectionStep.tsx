@@ -1,0 +1,205 @@
+import ComponentCard from "../../common/ComponentCard";
+import Button from "../../ui/button/Button";
+
+interface TemplateSelectionStepProps {
+  data: string;
+  onUpdate: (data: string) => void;
+}
+
+const templates = [
+  {
+    id: "modern",
+    name: "Modern Professional",
+    description: "Clean and contemporary design perfect for tech and creative industries",
+    category: "Professional",
+    preview: "bg-gradient-to-br from-blue-500 to-purple-600",
+    popular: true,
+    features: ["ATS Friendly", "Clean Layout", "Color Options", "Professional"]
+  },
+  {
+    id: "classic",
+    name: "Classic Executive",
+    description: "Traditional layout ideal for corporate and executive positions",
+    category: "Executive",
+    preview: "bg-gradient-to-br from-gray-700 to-gray-900",
+    features: ["Formal Design", "Corporate Style", "Traditional", "Executive"]
+  },
+  {
+    id: "creative",
+    name: "Creative Portfolio",
+    description: "Bold design with vibrant colors for creative professionals",
+    category: "Creative",
+    preview: "bg-gradient-to-br from-pink-500 to-orange-500",
+    features: ["Creative Layout", "Vibrant Colors", "Portfolio Style", "Artistic"]
+  },
+  {
+    id: "minimal",
+    name: "Minimal Clean",
+    description: "Simple and elegant design focusing on content",
+    category: "Minimal",
+    preview: "bg-gradient-to-br from-green-400 to-blue-500",
+    features: ["Minimal Design", "Clean Typography", "Simple Layout", "Elegant"]
+  },
+  {
+    id: "tech",
+    name: "Tech Specialist",
+    description: "Modern layout optimized for technical and IT roles",
+    category: "Technical",
+    preview: "bg-gradient-to-br from-indigo-500 to-cyan-500",
+    popular: true,
+    features: ["Tech Focused", "Modern Design", "Code Highlighting", "Technical"]
+  },
+  {
+    id: "academic",
+    name: "Academic Scholar",
+    description: "Formal design perfect for academic and research positions",
+    category: "Academic",
+    preview: "bg-gradient-to-br from-amber-500 to-red-500",
+    features: ["Academic Style", "Research Focus", "Formal Layout", "Scholarly"]
+  }
+];
+
+export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelectionStepProps) {
+  return (
+    <ComponentCard title="Choose Your Template" desc="Select a template that best represents your professional style">
+      <div className="space-y-6">
+        <div className="text-center mb-6">
+          <p className="text-gray-600 dark:text-gray-400">
+            Your template choice will determine the visual style and layout of your CV. 
+            Choose one that aligns with your industry and personal brand.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {templates.map((template) => (
+            <div
+              key={template.id}
+              className={`relative cursor-pointer transition-all duration-200 hover:shadow-lg ${
+                data === template.id 
+                  ? 'ring-2 ring-brand-500 shadow-lg' 
+                  : 'hover:shadow-md'
+              }`}
+              onClick={() => onUpdate(template.id)}
+            >
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                {/* Template Preview */}
+                <div className={`${template.preview} h-32 flex items-center justify-center text-white font-semibold text-lg relative`}>
+                  {template.name}
+                  {template.popular && (
+                    <div className="absolute top-2 right-2">
+                      <span className="bg-brand-500 text-white text-xs px-2 py-1 rounded-full">
+                        Popular
+                      </span>
+                    </div>
+                  )}
+                  {data === template.id && (
+                    <div className="absolute top-2 left-2">
+                      <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                        Selected
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Template Info */}
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    {template.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    {template.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {template.features.map((feature, index) => (
+                      <span
+                        key={index}
+                        className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-2 py-1 rounded"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400 px-2 py-1 rounded">
+                      {template.category}
+                    </span>
+                    <Button
+                      variant={data === template.id ? "primary" : "outline"}
+                      size="sm"
+                    >
+                      {data === template.id ? "Selected" : "Select"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Template Comparison */}
+        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Template Features Comparison</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <th className="text-left py-2 font-medium text-gray-900 dark:text-white">Feature</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Modern</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Classic</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Creative</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Minimal</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Tech</th>
+                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Academic</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-2 text-gray-700 dark:text-gray-300">ATS Friendly</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✓</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-2 text-gray-700 dark:text-gray-300">Color Options</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✗</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-2 text-gray-700 dark:text-gray-300">Creative Layout</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✓</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✗</td>
+                  <td className="text-center py-2">✗</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Tips */}
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+          <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">💡 Template Selection Tips</h4>
+          <ul className="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
+            <li>• <strong>ATS Friendly</strong> templates are best for online job applications</li>
+            <li>• <strong>Creative</strong> templates work well for design, marketing, and creative roles</li>
+            <li>• <strong>Classic/Executive</strong> templates are ideal for corporate and traditional industries</li>
+            <li>• <strong>Tech</strong> templates highlight technical skills and programming languages</li>
+            <li>• <strong>Minimal</strong> templates focus attention on content and achievements</li>
+            <li>• You can always change your template later if needed</li>
+          </ul>
+        </div>
+      </div>
+    </ComponentCard>
+  );
+}
