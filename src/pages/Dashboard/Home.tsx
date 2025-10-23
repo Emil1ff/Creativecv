@@ -32,7 +32,7 @@ export default function Home() {
               </Button>
             </Link>
             <Link to="/templates">
-              <Button variant="outline" size="md" className="border-white text-white hover:bg-white/10 hover-lift">
+              <Button variant="outline" size="md" className="border-white   hover-lift">
                 View Templates
               </Button>
             </Link>
