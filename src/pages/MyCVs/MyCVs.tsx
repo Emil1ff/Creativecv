@@ -3,77 +3,27 @@ import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
 import Button from "../../components/ui/button/Button";
 import { Link } from "react-router";
-
-interface SavedCV {
-  id: string;
-  name: string;
-  template: string;
-  createdAt: string;
-  updatedAt: string;
-  personalInfo: {
-    firstName: string;
-    lastName: string;
-    title: string;
-  };
-}
-
-const mockCVs: SavedCV[] = [
-  {
-    id: "1",
-    name: "Software Engineer CV",
-    template: "Modern Professional",
-    createdAt: "2024-01-15",
-    updatedAt: "2024-01-20",
-    personalInfo: {
-      firstName: "John",
-      lastName: "Doe",
-      title: "Senior Software Engineer"
-    }
-  },
-  {
-    id: "2",
-    name: "Marketing Manager CV",
-    template: "Creative Portfolio",
-    createdAt: "2024-01-10",
-    updatedAt: "2024-01-18",
-    personalInfo: {
-      firstName: "Sarah",
-      lastName: "Smith",
-      title: "Marketing Manager"
-    }
-  },
-  {
-    id: "3",
-    name: "Data Scientist CV",
-    template: "Tech Specialist",
-    createdAt: "2024-01-05",
-    updatedAt: "2024-01-12",
-    personalInfo: {
-      firstName: "Michael",
-      lastName: "Johnson",
-      title: "Data Scientist"
-    }
-  }
-];
+import { useCv } from "../../context/CvContext";
+import { useNotifications } from "../../components/common/Notification";
 
 export default function MyCVs() {
-  const [cvs, setCvs] = useState<SavedCV[]>(mockCVs);
+  const { cvs, deleteCv, duplicateCv } = useCv();
+  const { success, error } = useNotifications();
   const [selectedCVs, setSelectedCVs] = useState<string[]>([]);
 
-  const deleteCV = (id: string) => {
-    setCvs(cvs.filter(cv => cv.id !== id));
+  const handleDeleteCV = (id: string) => {
+    deleteCv(id);
     setSelectedCVs(selectedCVs.filter(cvId => cvId !== id));
+    success('CV Deleted', 'The CV has been successfully deleted.');
   };
 
-  const duplicateCV = (cv: SavedCV) => {
-    const newCV: SavedCV = {
-      ...cv,
-      id: Date.now().toString(),
-      name: `${cv.name} (Copy)`,
-      createdAt: new Date().toISOString().split('T')[0],
-      updatedAt: new Date().toISOString().split('T')[0],
-    };
-    setCvs([newCV, ...cvs]);
+  const handleDuplicateCV = (id: string) => {
+    const newCvId = duplicateCv(id);
+    if (newCvId) {
+      success('CV Duplicated', 'The CV has been successfully duplicated.');
+    } else {
+      error('Duplication Failed', 'Could not duplicate the CV. Please try again.');
+    }
   };
 
   const toggleCVSelection = (id: string) => {
@@ -93,20 +43,27 @@ export default function MyCVs() {
   };
 
   const deleteSelectedCVs = () => {
-    setCvs(cvs.filter(cv => !selectedCVs.includes(cv.id)));
+    selectedCVs.forEach(id => deleteCv(id));
     setSelectedCVs([]);
+    success('CVs Deleted', `${selectedCVs.length} CVs have been successfully deleted.`);
   };
 
   const getTemplatePreview = (template: string) => {
     const templates: { [key: string]: string } = {
-      "Modern Professional": "bg-gradient-to-br from-blue-500 to-purple-600",
-      "Creative Portfolio": "bg-gradient-to-br from-pink-500 to-orange-500",
-      "Tech Specialist": "bg-gradient-to-br from-indigo-500 to-cyan-500",
-      "Classic Executive": "bg-gradient-to-br from-gray-700 to-gray-900",
-      "Minimal Clean": "bg-gradient-to-br from-green-400 to-blue-500",
-      "Academic Scholar": "bg-gradient-to-br from-amber-500 to-red-500"
+      "modern": "bg-gradient-to-br from-blue-500 to-purple-600",
+      "creative": "bg-gradient-to-br from-pink-500 to-orange-500",
+      "classic": "bg-gradient-to-br from-gray-700 to-gray-900",
     };
     return templates[template] || "bg-gradient-to-br from-gray-400 to-gray-600";
+  };
+
+  const getTemplateName = (template: string) => {
+    const templates: { [key: string]: string } = {
+      "modern": "Modern Professional",
+      "creative": "Creative Portfolio", 
+      "classic": "Classic Executive",
+    };
+    return templates[template] || template;
   };
 
   return (
@@ -224,7 +181,7 @@ export default function MyCVs() {
               <div className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
                 selectedCVs.includes(cv.id) ? 'ring-2 ring-brand-500' : ''
               }`}>
-                <ComponentCard title={cv.name}>
+                <ComponentCard title={cv.title}>
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-4">
                     <input
@@ -235,23 +192,23 @@ export default function MyCVs() {
                     />
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                        {cv.name}
+                        {cv.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {cv.personalInfo.firstName} {cv.personalInfo.lastName}
+                        {cv.data.personalInfo.firstName} {cv.data.personalInfo.lastName}
                       </p>
                     </div>
                   </div>
 
                   {/* CV Preview */}
                   <div className={`${getTemplatePreview(cv.template)} h-24 rounded-lg mb-4 flex items-center justify-center text-white font-semibold text-sm`}>
-                    {cv.template}
+                    {getTemplateName(cv.template)}
                   </div>
 
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">Template:</span>
-                      <span className="text-gray-900 dark:text-white">{cv.template}</span>
+                      <span className="text-gray-900 dark:text-white">{getTemplateName(cv.template)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">Created:</span>
@@ -274,14 +231,14 @@ export default function MyCVs() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => duplicateCV(cv)}
+                      onClick={() => handleDuplicateCV(cv.id)}
                     >
                       Copy
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => deleteCV(cv.id)}
+                      onClick={() => handleDeleteCV(cv.id)}
                       className="text-red-600 border-red-300 hover:bg-red-50"
                     >
                       Delete

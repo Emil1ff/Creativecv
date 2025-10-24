@@ -13,19 +13,23 @@ import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import Help from "./pages/Help/Help";
 import { NotificationContainer, useNotifications } from "./components/common/Notification";
+import { AuthProvider } from "./context/AuthContext";
+import { CvProvider } from "./context/CvContext";
 
 export default function App() {
   const { notifications, removeNotification } = useNotifications();
 
   return (
     <>
-      <Router>
-        <ScrollToTop />
-        <NotificationContainer 
-          notifications={notifications} 
-          onClose={removeNotification} 
-        />
-        <Routes>
+      <AuthProvider>
+        <CvProvider>
+          <Router>
+            <ScrollToTop />
+            <NotificationContainer 
+              notifications={notifications} 
+              onClose={removeNotification} 
+            />
+            <Routes>
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
             {/* Main CV Pages */}
@@ -47,8 +51,10 @@ export default function App() {
 
           {/* Fallback Route */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+            </Routes>
+          </Router>
+        </CvProvider>
+      </AuthProvider>
     </>
   );
 }

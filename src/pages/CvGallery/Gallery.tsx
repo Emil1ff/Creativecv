@@ -20,7 +20,7 @@ const cvExamples: CvExample[] = [
     name: "John Doe",
     title: "Senior Frontend Developer",
     industry: "Technology",
-    template: "Modern Professional",
+    template: "modern",
     preview: "bg-gradient-to-br from-blue-500 to-purple-600",
     featured: true,
   },
@@ -29,7 +29,7 @@ const cvExamples: CvExample[] = [
     name: "Sarah Smith",
     title: "Marketing Manager",
     industry: "Marketing",
-    template: "Creative Portfolio",
+    template: "creative",
     preview: "bg-gradient-to-br from-pink-500 to-orange-500",
     featured: true,
   },
@@ -38,7 +38,7 @@ const cvExamples: CvExample[] = [
     name: "Michael Johnson",
     title: "Data Scientist",
     industry: "Data Science",
-    template: "Tech Specialist",
+    template: "modern",
     preview: "bg-gradient-to-br from-indigo-500 to-cyan-500",
   },
   {
@@ -46,7 +46,7 @@ const cvExamples: CvExample[] = [
     name: "Emma Wilson",
     title: "UX Designer",
     industry: "Design",
-    template: "Creative Portfolio",
+    template: "creative",
     preview: "bg-gradient-to-br from-purple-500 to-pink-500",
   },
   {
@@ -54,7 +54,7 @@ const cvExamples: CvExample[] = [
     name: "David Brown",
     title: "Financial Analyst",
     industry: "Finance",
-    template: "Classic Executive",
+    template: "classic",
     preview: "bg-gradient-to-br from-gray-700 to-gray-900",
   },
   {
@@ -62,7 +62,7 @@ const cvExamples: CvExample[] = [
     name: "Lisa Garcia",
     title: "Project Manager",
     industry: "Management",
-    template: "Modern Professional",
+    template: "modern",
     preview: "bg-gradient-to-br from-green-400 to-blue-500",
   },
   {
@@ -70,7 +70,7 @@ const cvExamples: CvExample[] = [
     name: "Alex Chen",
     title: "Software Engineer",
     industry: "Technology",
-    template: "Tech Specialist",
+    template: "modern",
     preview: "bg-gradient-to-br from-teal-500 to-green-500",
   },
   {
@@ -78,7 +78,7 @@ const cvExamples: CvExample[] = [
     name: "Maria Rodriguez",
     title: "Graphic Designer",
     industry: "Design",
-    template: "Creative Portfolio",
+    template: "creative",
     preview: "bg-gradient-to-br from-amber-500 to-red-500",
   },
 ];

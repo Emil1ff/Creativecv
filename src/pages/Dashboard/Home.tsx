@@ -2,8 +2,16 @@ import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
 import Button from "../../components/ui/button/Button";
 import { Link } from "react-router";
+import { useCv } from "../../context/CvContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Home() {
+  const { cvs } = useCv();
+  const { user } = useAuth();
+  
+  const totalCvs = cvs.length;
+  const templatesAvailable = 7; // We have 7 templates
+
   return (
     <>
       <PageMeta
@@ -20,7 +28,7 @@ export default function Home() {
           <div className="absolute bottom-6 left-1/4 w-12 h-12 bg-white/10 rounded-full animate-float" style={{animationDelay: '4s'}}></div>
           
           <h1 className="text-4xl font-bold text-white mb-4 animate-bounce-in">
-            Professional CV Builder
+            Welcome back, {user?.name || 'User'}!
           </h1>
           <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.3s'}}>
             Create stunning, professional CVs in minutes. Choose from our collection of modern templates and customize them to match your style.
@@ -43,15 +51,15 @@ export default function Home() {
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         {/* Quick Stats */}
         <div className="col-span-12 md:col-span-4 animate-slide-up" style={{animationDelay: '0.1s'}}>
-          <ComponentCard title="Total CVs Created" className="text-center hover-lift">
-            <div className="text-3xl font-bold text-brand-500 mb-2 animate-pulse-slow">1,234</div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Professional CVs generated</p>
+          <ComponentCard title="Your CVs" className="text-center hover-lift">
+            <div className="text-3xl font-bold text-brand-500 mb-2 animate-pulse-slow">{totalCvs}</div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">CVs created by you</p>
           </ComponentCard>
         </div>
 
         <div className="col-span-12 md:col-span-4 animate-slide-up" style={{animationDelay: '0.2s'}}>
           <ComponentCard title="Templates Available" className="text-center hover-lift">
-            <div className="text-3xl font-bold text-brand-500 mb-2 animate-pulse-slow">12+</div>
+            <div className="text-3xl font-bold text-brand-500 mb-2 animate-pulse-slow">{templatesAvailable}</div>
             <p className="text-sm text-gray-500 dark:text-gray-400">Modern CV templates</p>
           </ComponentCard>
         </div>
@@ -129,6 +137,11 @@ export default function Home() {
               <Link to="/templates" className="block">
                 <Button variant="outline" className="w-full justify-center">
                   Browse Templates
+                </Button>
+              </Link>
+              <Link to="/my-cvs" className="block">
+                <Button variant="outline" className="w-full justify-center">
+                  My CVs ({totalCvs})
                 </Button>
               </Link>
               <Link to="/gallery" className="block">

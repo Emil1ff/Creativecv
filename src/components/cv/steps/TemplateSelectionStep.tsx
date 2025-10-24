@@ -33,29 +33,37 @@ const templates = [
     features: ["Creative Layout", "Vibrant Colors", "Portfolio Style", "Artistic"]
   },
   {
-    id: "minimal",
-    name: "Minimal Clean",
-    description: "Simple and elegant design focusing on content",
-    category: "Minimal",
-    preview: "bg-gradient-to-br from-green-400 to-blue-500",
-    features: ["Minimal Design", "Clean Typography", "Simple Layout", "Elegant"]
-  },
-  {
     id: "tech",
     name: "Tech Specialist",
-    description: "Modern layout optimized for technical and IT roles",
-    category: "Technical",
-    preview: "bg-gradient-to-br from-indigo-500 to-cyan-500",
+    description: "Vibrant tech-focused design with modern gradients and dynamic layouts",
+    category: "Technology",
+    preview: "bg-gradient-to-br from-indigo-500 to-purple-500",
     popular: true,
-    features: ["Tech Focused", "Modern Design", "Code Highlighting", "Technical"]
+    features: ["Tech Focused", "Modern Gradients", "Dynamic Layout", "Innovative"]
   },
   {
-    id: "academic",
-    name: "Academic Scholar",
-    description: "Formal design perfect for academic and research positions",
-    category: "Academic",
-    preview: "bg-gradient-to-br from-amber-500 to-red-500",
-    features: ["Academic Style", "Research Focus", "Formal Layout", "Scholarly"]
+    id: "design",
+    name: "Design Master",
+    description: "Colorful and artistic design perfect for designers and creatives",
+    category: "Design",
+    preview: "bg-gradient-to-br from-orange-400 to-red-500",
+    features: ["Artistic Layout", "Colorful Design", "Creative Focus", "Visual Impact"]
+  },
+  {
+    id: "nature",
+    name: "Nature Inspired",
+    description: "Green and natural design with organic shapes and earth tones",
+    category: "Eco-Friendly",
+    preview: "bg-gradient-to-br from-green-500 to-teal-500",
+    features: ["Eco-Friendly", "Natural Colors", "Organic Design", "Sustainable"]
+  },
+  {
+    id: "purple",
+    name: "Purple Creative",
+    description: "Bold purple and pink design for creative professionals and artists",
+    category: "Creative",
+    preview: "bg-gradient-to-br from-purple-600 to-pink-500",
+    features: ["Bold Colors", "Creative Layout", "Artistic Style", "Unique Design"]
   }
 ];
 
@@ -70,7 +78,7 @@ export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelect
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {templates.map((template) => (
             <div
               key={template.id}
@@ -149,9 +157,6 @@ export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelect
                   <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Modern</th>
                   <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Classic</th>
                   <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Creative</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Minimal</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Tech</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Academic</th>
                 </tr>
               </thead>
               <tbody>
@@ -160,27 +165,18 @@ export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelect
                   <td className="text-center py-2">✓</td>
                   <td className="text-center py-2">✓</td>
                   <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✓</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-700">
                   <td className="py-2 text-gray-700 dark:text-gray-300">Color Options</td>
                   <td className="text-center py-2">✓</td>
                   <td className="text-center py-2">✗</td>
                   <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✗</td>
                 </tr>
                 <tr className="border-b border-gray-100 dark:border-gray-700">
                   <td className="py-2 text-gray-700 dark:text-gray-300">Creative Layout</td>
                   <td className="text-center py-2">✗</td>
                   <td className="text-center py-2">✗</td>
                   <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✗</td>
                 </tr>
               </tbody>
             </table>
@@ -191,11 +187,9 @@ export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelect
         <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
           <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">💡 Template Selection Tips</h4>
           <ul className="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
-            <li>• <strong>ATS Friendly</strong> templates are best for online job applications</li>
-            <li>• <strong>Creative</strong> templates work well for design, marketing, and creative roles</li>
-            <li>• <strong>Classic/Executive</strong> templates are ideal for corporate and traditional industries</li>
-            <li>• <strong>Tech</strong> templates highlight technical skills and programming languages</li>
-            <li>• <strong>Minimal</strong> templates focus attention on content and achievements</li>
+            <li>• <strong>Modern Professional</strong> - Best for tech, marketing, and modern industries</li>
+            <li>• <strong>Classic Executive</strong> - Ideal for corporate, finance, and traditional roles</li>
+            <li>• <strong>Creative Portfolio</strong> - Perfect for design, art, and creative professionals</li>
             <li>• You can always change your template later if needed</li>
           </ul>
         </div>

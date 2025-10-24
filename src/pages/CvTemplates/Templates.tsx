@@ -36,45 +36,9 @@ const templates: Template[] = [
     category: "Creative",
     preview: "bg-gradient-to-br from-pink-500 to-orange-500",
   },
-  {
-    id: "minimal",
-    name: "Minimal Clean",
-    description: "Simple and elegant design focusing on content",
-    category: "Minimal",
-    preview: "bg-gradient-to-br from-green-400 to-blue-500",
-  },
-  {
-    id: "tech",
-    name: "Tech Specialist",
-    description: "Modern layout optimized for technical and IT roles",
-    category: "Technical",
-    preview: "bg-gradient-to-br from-indigo-500 to-cyan-500",
-    popular: true,
-  },
-  {
-    id: "academic",
-    name: "Academic Scholar",
-    description: "Formal design perfect for academic and research positions",
-    category: "Academic",
-    preview: "bg-gradient-to-br from-amber-500 to-red-500",
-  },
-  {
-    id: "startup",
-    name: "Startup Enthusiast",
-    description: "Dynamic design for entrepreneurs and startup professionals",
-    category: "Startup",
-    preview: "bg-gradient-to-br from-purple-500 to-pink-500",
-  },
-  {
-    id: "medical",
-    name: "Medical Professional",
-    description: "Clean and trustworthy design for healthcare professionals",
-    category: "Medical",
-    preview: "bg-gradient-to-br from-teal-500 to-green-500",
-  },
 ];
 
-const categories = ["All", "Professional", "Executive", "Creative", "Minimal", "Technical", "Academic", "Startup", "Medical"];
+const categories = ["All", "Professional", "Executive", "Creative"];
 
 export default function Templates() {
   const [selectedCategory, setSelectedCategory] = useState("All");
