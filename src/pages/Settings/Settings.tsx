@@ -49,11 +49,11 @@ export default function Settings() {
   const [settings, setSettings] = useState<AppSettings>(initialSettings);
   const [hasChanges, setHasChanges] = useState(false);
 
-  const updateSetting = (section: keyof AppSettings, field: string, value: any) => {
+  const updateSetting = <K extends keyof AppSettings>(section: K, field: string, value: boolean | number | string) => {
     setSettings(prev => ({
       ...prev,
       [section]: {
-        ...(prev[section] as any),
+        ...(prev[section] as Record<string, unknown>),
         [field]: value
       }
     }));
@@ -115,7 +115,7 @@ export default function Settings() {
                 <select
                   id="theme"
                   value={settings.theme}
-                  onChange={(e) => setSettings(prev => ({ ...prev, theme: e.target.value as any }))}
+                  onChange={(e) => setSettings(prev => ({ ...prev, theme: e.target.value as 'light' | 'dark' | 'auto' }))}
                   className="w-full h-11 rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2.5 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white mt-1"
                 >
                   <option value="light">Light Mode</option>

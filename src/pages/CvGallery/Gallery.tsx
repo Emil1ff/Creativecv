@@ -88,10 +88,16 @@ const industries = ["All", "Technology", "Marketing", "Data Science", "Design", 
 export default function Gallery() {
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [selectedCv, setSelectedCv] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredCvs = selectedIndustry === "All" 
-    ? cvExamples 
-    : cvExamples.filter(cv => cv.industry === selectedIndustry);
+  const filteredCvs = cvExamples
+    .filter(cv => selectedIndustry === "All" || cv.industry === selectedIndustry)
+    .filter(cv => 
+      searchQuery === "" ||
+      cv.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cv.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cv.industry.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   const featuredCvs = cvExamples.filter(cv => cv.featured);
 
@@ -108,9 +114,25 @@ export default function Gallery() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             CV Gallery
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             Explore professional CV examples created with our templates. Get inspired and see what's possible.
           </p>
+          
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by name, title, or industry..."
+                className="w-full px-4 py-3 pl-12 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+              <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 

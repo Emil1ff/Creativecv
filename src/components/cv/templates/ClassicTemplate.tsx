@@ -92,10 +92,10 @@ export default function ClassicTemplate({ cvData }: ClassicTemplateProps) {
         )}
 
         {/* Skills */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-wrap gap-8">
           {/* Technical Skills */}
           {skills.technical.length > 0 && (
-            <section>
+            <section className="w-full md:w-[calc(50%-1rem)]">
               <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
                 TECHNICAL SKILLS
               </h2>
@@ -118,7 +118,7 @@ export default function ClassicTemplate({ cvData }: ClassicTemplateProps) {
 
           {/* Soft Skills */}
           {skills.soft.length > 0 && (
-            <section>
+            <section className="w-full md:w-[calc(50%-1rem)]">
               <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
                 SOFT SKILLS
               </h2>
@@ -146,9 +146,9 @@ export default function ClassicTemplate({ cvData }: ClassicTemplateProps) {
             <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
               LANGUAGES
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="flex flex-wrap gap-4">
               {skills.languages.map((language, index) => (
-                <div key={index} className="text-center p-3 bg-gray-50 rounded">
+                <div key={index} className="text-center p-3 bg-gray-50 rounded w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.667rem)]">
                   <p className="font-medium text-gray-900">{language.name}</p>
                   <p className="text-sm text-gray-600">{language.proficiency}</p>
                 </div>
@@ -207,9 +207,9 @@ export default function ClassicTemplate({ cvData }: ClassicTemplateProps) {
             <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
               CERTIFICATIONS
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-wrap gap-4">
               {certifications.map((cert) => (
-                <div key={cert.id} className="p-4 border border-gray-200 rounded">
+                <div key={cert.id} className="p-4 border border-gray-200 rounded w-full md:w-[calc(50%-0.5rem)]">
                   <h4 className="font-medium text-gray-900">{cert.name}</h4>
                   <p className="text-sm text-gray-600">{cert.issuer}</p>
                   <p className="text-xs text-gray-500">{cert.date}</p>

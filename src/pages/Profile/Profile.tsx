@@ -49,14 +49,14 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState<'profile' | 'preferences' | 'security'>('profile');
   const [isEditing, setIsEditing] = useState(false);
 
-  const updateProfile = (field: keyof UserProfile, value: any) => {
+  const updateProfile = (field: keyof UserProfile, value: string) => {
     setProfile(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const updatePreferences = (field: keyof UserProfile['preferences'], value: any) => {
+  const updatePreferences = (field: keyof UserProfile['preferences'], value: string | boolean) => {
     setProfile(prev => ({
       ...prev,
       preferences: {
@@ -116,9 +116,9 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-4 md:gap-6">
+      <div className="flex flex-wrap gap-4 md:gap-6">
         {/* Profile Overview */}
-        <div className="col-span-12 lg:col-span-4">
+        <div className="w-full lg:w-[calc(33.333%-1rem)]">
           <ComponentCard title="Profile Overview" className="text-center animate-scale-in">
             <div className="mb-6">
               <div className="w-24 h-24 bg-gradient-to-r from-brand-500 to-brand-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold animate-pulse-slow">
@@ -166,7 +166,7 @@ export default function Profile() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-12 lg:col-span-8">
+        <div className="w-full lg:w-[calc(66.667%-1rem)] lg:flex-1">
           {/* Tabs */}
           <div className="animate-slide-up" style={{animationDelay: '0.2s'}}>
             <ComponentCard title="Profile Management">
@@ -174,7 +174,7 @@ export default function Profile() {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as 'profile' | 'preferences' | 'security')}
                   className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md text-sm font-medium transition-all ${
                     activeTab === tab.id
                       ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
@@ -192,8 +192,8 @@ export default function Profile() {
               <div className="space-y-6 animate-fade-in">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Personal Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="w-full md:w-[calc(50%-0.5rem)]">
                       <Label htmlFor="firstName">First Name</Label>
                       <InputField
                         id="firstName"
@@ -202,7 +202,7 @@ export default function Profile() {
                         disabled={!isEditing}
                       />
                     </div>
-                    <div>
+                    <div className="w-full md:w-[calc(50%-0.5rem)]">
                       <Label htmlFor="lastName">Last Name</Label>
                       <InputField
                         id="lastName"
@@ -211,7 +211,7 @@ export default function Profile() {
                         disabled={!isEditing}
                       />
                     </div>
-                    <div>
+                    <div className="w-full md:w-[calc(50%-0.5rem)]">
                       <Label htmlFor="email">Email Address</Label>
                       <InputField
                         id="email"
@@ -221,7 +221,7 @@ export default function Profile() {
                         disabled={!isEditing}
                       />
                     </div>
-                    <div>
+                    <div className="w-full md:w-[calc(50%-0.5rem)]">
                       <Label htmlFor="phone">Phone Number</Label>
                       <InputField
                         id="phone"
@@ -230,7 +230,7 @@ export default function Profile() {
                         disabled={!isEditing}
                       />
                     </div>
-                    <div>
+                    <div className="w-full md:w-[calc(50%-0.5rem)]">
                       <Label htmlFor="location">Location</Label>
                       <InputField
                         id="location"
@@ -255,8 +255,8 @@ export default function Profile() {
                         placeholder="Tell us about yourself..."
                       />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
+                    <div className="flex flex-wrap gap-4">
+                      <div className="w-full md:w-[calc(33.333%-0.667rem)]">
                         <Label htmlFor="website">Website</Label>
                         <InputField
                           id="website"
@@ -265,7 +265,7 @@ export default function Profile() {
                           disabled={!isEditing}
                         />
                       </div>
-                      <div>
+                      <div className="w-full md:w-[calc(33.333%-0.667rem)]">
                         <Label htmlFor="linkedin">LinkedIn</Label>
                         <InputField
                           id="linkedin"
@@ -274,7 +274,7 @@ export default function Profile() {
                           disabled={!isEditing}
                         />
                       </div>
-                      <div>
+                      <div className="w-full md:w-[calc(33.333%-0.667rem)]">
                         <Label htmlFor="github">GitHub</Label>
                         <InputField
                           id="github"

@@ -221,27 +221,29 @@ export default function MyCVs() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      className="flex-1"
-                    >
-                      Edit
-                    </Button>
+                    <Link to={`/create?id=${cv.id}`} className="flex-1">
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="w-full"
+                      >
+                        📝 Edit
+                      </Button>
+                    </Link>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleDuplicateCV(cv.id)}
                     >
-                      Copy
+                      📋 Duplicate
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleDeleteCV(cv.id)}
-                      className="text-red-600 border-red-300 hover:bg-red-50"
+                      className="text-red-600 border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
-                      Delete
+                      🗑️ Delete
                     </Button>
                   </div>
                 </div>

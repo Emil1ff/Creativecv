@@ -72,9 +72,9 @@ export default function TechTemplate({ cvData }: TechTemplateProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="flex flex-wrap gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="w-full lg:w-[calc(66.667%-1.333rem)] space-y-8">
           {/* Work Experience */}
           {workExperience.length > 0 && (
             <section>
@@ -192,7 +192,7 @@ export default function TechTemplate({ cvData }: TechTemplateProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-8">
+        <div className="w-full lg:w-[calc(33.333%-1.333rem)] space-y-8">
           {/* Technical Skills */}
           {skills.technical.length > 0 && (
             <section>

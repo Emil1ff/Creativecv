@@ -16,7 +16,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { register, googleLogin, loading } = useAuth();
+  const { signup, googleLogin, loading } = useAuth();
   const navigate = useNavigate();
   const { success, error } = useNotifications();
 
@@ -43,7 +43,7 @@ export default function SignUpForm() {
       return;
     }
 
-    const registerSuccess = await register(email, password, name);
+    const registerSuccess = await signup(email, password, name);
     
     if (registerSuccess) {
       success("Registration successful!", "Welcome to Creative CV!");

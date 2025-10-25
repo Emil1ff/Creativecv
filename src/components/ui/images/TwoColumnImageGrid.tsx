@@ -1,7 +1,7 @@
 export default function TwoColumnImageGrid() {
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-      <div>
+    <div className="flex flex-wrap gap-5">
+      <div className="w-full sm:w-[calc(50%-0.625rem)]">
         <img
           src="/images/grid-image/image-02.png"
           alt=" grid"
@@ -9,7 +9,7 @@ export default function TwoColumnImageGrid() {
         />
       </div>
 
-      <div>
+      <div className="w-full sm:w-[calc(50%-0.625rem)]">
         <img
           src="/images/grid-image/image-03.png"
           alt=" grid"

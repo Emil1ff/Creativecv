@@ -40,7 +40,7 @@ export default function WorkExperienceStep({ data, onUpdate }: WorkExperienceSte
     onUpdate([...data, newExp]);
   };
 
-  const updateExperience = (id: string, field: keyof WorkExperience, value: any) => {
+  const updateExperience = (id: string, field: keyof WorkExperience, value: string | boolean | string[]) => {
     const updated = data.map(exp => 
       exp.id === id ? { ...exp, [field]: value } : exp
     );

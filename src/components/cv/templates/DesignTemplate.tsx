@@ -74,9 +74,9 @@ export default function DesignTemplate({ cvData }: DesignTemplateProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="flex flex-wrap gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="w-full lg:w-[calc(66.667%-1.333rem)] space-y-8">
           {/* Work Experience */}
           {workExperience.length > 0 && (
             <section>
@@ -173,9 +173,9 @@ export default function DesignTemplate({ cvData }: DesignTemplateProps) {
                 </svg>
                 Projects
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-wrap gap-6">
                 {projects.map((project) => (
-                  <div key={project.id} className="bg-gradient-to-br from-orange-50 to-pink-50 p-6 rounded-2xl border border-orange-200">
+                  <div key={project.id} className="bg-gradient-to-br from-orange-50 to-pink-50 p-6 rounded-2xl border border-orange-200 w-full md:w-[calc(50%-0.75rem)]">
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
@@ -213,7 +213,7 @@ export default function DesignTemplate({ cvData }: DesignTemplateProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-8">
+        <div className="w-full lg:w-[calc(33.333%-1.333rem)] space-y-8">
           {/* Technical Skills */}
           {skills.technical.length > 0 && (
             <section>

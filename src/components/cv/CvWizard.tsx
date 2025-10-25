@@ -108,7 +108,7 @@ export default function CvWizard() {
   const { success } = useNotifications();
   const { createCv } = useCv();
 
-  const updateCvData = (section: keyof CvData, data: any) => {
+  const updateCvData = <K extends keyof CvData>(section: K, data: CvData[K]) => {
     setCvData(prev => ({
       ...prev,
       [section]: data

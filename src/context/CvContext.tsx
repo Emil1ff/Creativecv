@@ -9,6 +9,7 @@ interface CvItem {
   createdAt: string;
   updatedAt: string;
   thumbnail?: string;
+  downloads?: number;
 }
 
 interface CvContextType {
