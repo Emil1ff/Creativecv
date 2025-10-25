@@ -32,6 +32,21 @@ TailAdmin provides essential UI components and layouts for building feature-rich
 - [Vue.js Version](https://github.com/TailAdmin/vue-tailwind-admin-dashboard)
 
 
+## Netlify Deployment 🚀
+
+### Environment Variables
+AI funksiyalarının işləməsi üçün Netlify-də environment variable konfiqurasiya etməlisiniz:
+
+1. **Netlify Dashboard** → **Site Settings** → **Environment Variables**
+2. **Add variable**:
+   - Key: `VITE_GROQ_API_KEY`
+   - Value: [Your Groq API Key from https://console.groq.com/keys]
+3. **Redeploy** edin
+
+⚠️ **Qeyd**: API key konfiqurasiya edilməyibsə, AI funksiyaları deaktiv olacaq, lakin əsas funksiyalar işləyəcək.
+
+Ətraflı təlimat: [NETLIFY_DEPLOYMENT.md](./NETLIFY_DEPLOYMENT.md)
+
 ## Installation
 
 ### Prerequisites

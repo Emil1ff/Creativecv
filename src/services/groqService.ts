@@ -4,13 +4,22 @@ import Groq from "groq-sdk";
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
 if (!apiKey) {
-  console.error('GROQ_API_KEY is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+  console.warn('⚠️ Groq API key is not configured. AI features will be disabled.');
+  console.warn('To enable AI features, set VITE_GROQ_API_KEY environment variable.');
+  console.warn('Get your API key from: https://console.groq.com/keys');
 }
 
-const groq = apiKey ? new Groq({
-  apiKey: apiKey,
-  dangerouslyAllowBrowser: true, // Frontend üçün
-}) : null;
+let groq: Groq | null = null;
+
+try {
+  groq = apiKey ? new Groq({
+    apiKey: apiKey,
+    dangerouslyAllowBrowser: true, // Frontend üçün
+  }) : null;
+} catch (error) {
+  console.error('Failed to initialize Groq client:', error);
+  groq = null;
+}
 
 export interface CVData {
   jobTitle: string;
@@ -22,6 +31,16 @@ export interface CVData {
 export interface EnhanceTextOptions {
   text: string;
   context: 'summary' | 'experience' | 'education' | 'skills';
+}
+
+// Helper funksiya - AI-nin mövcud olub-olmadığını yoxlayır
+export function isAIAvailable(): boolean {
+  return groq !== null;
+}
+
+// Error message helper
+function getConfigurationError(): string {
+  return 'AI funksiyaları aktiv deyil. Groq API key konfiqurasiya edilməyib. Zəhmət olmasa VITE_GROQ_API_KEY environment variable əlavə edin.';
 }
 
 // AI CV Generator
@@ -64,7 +83,7 @@ Return ONLY valid JSON in this exact format:
 
   try {
     if (!groq) {
-      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+      throw new Error(getConfigurationError());
     }
     
     const completion = await groq.chat.completions.create({
@@ -105,7 +124,7 @@ Return ONLY the improved text without any explanations, quotes, or additional fo
 
   try {
     if (!groq) {
-      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+      throw new Error(getConfigurationError());
     }
     
     const completion = await groq.chat.completions.create({
@@ -134,7 +153,7 @@ Include both technical and soft skills relevant to the position.
 
   try {
     if (!groq) {
-      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+      throw new Error(getConfigurationError());
     }
     
     const completion = await groq.chat.completions.create({
@@ -181,7 +200,7 @@ Return ONLY the cover letter text, no additional formatting or explanations.
 
   try {
     if (!groq) {
-      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+      throw new Error(getConfigurationError());
     }
     
     const completion = await groq.chat.completions.create({
@@ -203,4 +222,5 @@ export default {
   enhanceText,
   suggestSkills,
   generateCoverLetter,
+  isAIAvailable,
 };

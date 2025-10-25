@@ -3,10 +3,12 @@ import Button from "../../components/ui/button/Button";
 import { Link } from "react-router";
 import { useCv } from "../../context/CvContext";
 import { useAuth } from "../../context/AuthContext";
+import { isAIAvailable } from "../../services/groqService";
 
 export default function Home() {
   const { cvs } = useCv();
   const { user } = useAuth();
+  const aiEnabled = isAIAvailable();
   
   const totalCvs = cvs.length;
   const templatesAvailable = 6;
@@ -47,11 +49,16 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/ai-builder">
-                <Button variant="primary" size="md" className="shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all px-6 py-3 bg-gradient-to-r from-brand-500 to-purple-600">
+                <Button 
+                  variant="primary" 
+                  size="md" 
+                  className="shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all px-6 py-3 bg-gradient-to-r from-brand-500 to-purple-600"
+                  disabled={!aiEnabled}
+                >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  AI ilə CV Yarat
+                  AI ilə CV Yarat {!aiEnabled && '(Deaktiv)'}
                 </Button>
               </Link>
               <Link to="/create">
