@@ -1,24 +1,39 @@
 import Groq from "groq-sdk";
 
-// API key-in olub-olmadığını yoxla
+// API key-i yoxla
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
-if (!apiKey) {
-  console.warn('⚠️ Groq API key is not configured. AI features will be disabled.');
-  console.warn('To enable AI features, set VITE_GROQ_API_KEY environment variable.');
-  console.warn('Get your API key from: https://console.groq.com/keys');
-}
+// Groq client-i cache etmək üçün
+let groqInstance: Groq | null | undefined = undefined;
 
-let groq: Groq | null = null;
+// Lazy initialization - yalnız lazım olanda yaradır
+function getGroqClient(): Groq | null {
+  // Əgər artıq yoxlanılıbsa, cache-dən qaytar
+  if (groqInstance !== undefined) {
+    return groqInstance;
+  }
 
-try {
-  groq = apiKey ? new Groq({
-    apiKey: apiKey,
-    dangerouslyAllowBrowser: true, // Frontend üçün
-  }) : null;
-} catch (error) {
-  console.error('Failed to initialize Groq client:', error);
-  groq = null;
+  // API key yoxdursa
+  if (!apiKey) {
+    console.warn('⚠️ Groq API key is not configured. AI features will be disabled.');
+    console.warn('To enable AI features, set VITE_GROQ_API_KEY environment variable.');
+    console.warn('Get your API key from: https://console.groq.com/keys');
+    groqInstance = null;
+    return null;
+  }
+
+  // Client-i yarat
+  try {
+    groqInstance = new Groq({
+      apiKey: apiKey,
+      dangerouslyAllowBrowser: true, // Frontend üçün
+    });
+    return groqInstance;
+  } catch (error) {
+    console.error('Failed to initialize Groq client:', error);
+    groqInstance = null;
+    return null;
+  }
 }
 
 export interface CVData {
@@ -35,7 +50,7 @@ export interface EnhanceTextOptions {
 
 // Helper funksiya - AI-nin mövcud olub-olmadığını yoxlayır
 export function isAIAvailable(): boolean {
-  return groq !== null;
+  return apiKey !== undefined && apiKey !== '';
 }
 
 // Error message helper
@@ -82,6 +97,7 @@ Return ONLY valid JSON in this exact format:
 `;
 
   try {
+    const groq = getGroqClient();
     if (!groq) {
       throw new Error(getConfigurationError());
     }
@@ -123,6 +139,7 @@ Return ONLY the improved text without any explanations, quotes, or additional fo
 `;
 
   try {
+    const groq = getGroqClient();
     if (!groq) {
       throw new Error(getConfigurationError());
     }
@@ -152,6 +169,7 @@ Include both technical and soft skills relevant to the position.
 `;
 
   try {
+    const groq = getGroqClient();
     if (!groq) {
       throw new Error(getConfigurationError());
     }
@@ -199,6 +217,7 @@ Return ONLY the cover letter text, no additional formatting or explanations.
 `;
 
   try {
+    const groq = getGroqClient();
     if (!groq) {
       throw new Error(getConfigurationError());
     }
