@@ -186,7 +186,7 @@ export default function AIDemo() {
       {activeModal === 'skills' && (
         <AISkillsSuggestion
           jobTitle="Frontend Developer"
-          existingSkills={demoCV.skills || []}
+          existingSkills={('skills' in demoCV && Array.isArray(demoCV.skills)) ? demoCV.skills : []}
           onSelected={(skills) => {
             console.log('Selected skills:', skills);
             alert(`${skills.length} skill seçildi!`);

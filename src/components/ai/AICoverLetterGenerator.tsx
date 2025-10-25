@@ -8,7 +8,7 @@ interface AICoverLetterGeneratorProps {
   onClose: () => void;
 }
 
-export default function AICoverLetterGenerator({ cvData, onGenerated, onClose }: AICoverLetterGeneratorProps) {
+export default function AICoverLetterGenerator({ cvData, onClose }: AICoverLetterGeneratorProps) {
   const { generateCoverLetter, isGenerating, error } = useAI();
   const [jobDescription, setJobDescription] = useState('');
   const [companyName, setCompanyName] = useState('');

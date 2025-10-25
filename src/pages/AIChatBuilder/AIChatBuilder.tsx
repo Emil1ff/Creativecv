@@ -46,7 +46,7 @@ export default function AIChatBuilder() {
     setIsTyping(true);
 
     try {
-      const { reply, updatedState } = await sendMessage(conversation, message);
+      const { updatedState } = await sendMessage(conversation, message);
       setConversation(updatedState);
       
       // Auto-save söhbəti
@@ -63,8 +63,8 @@ export default function AIChatBuilder() {
       const hasMinimumData = 
         updatedState.cvData.personalInfo?.firstName &&
         updatedState.cvData.personalInfo?.email &&
-        (updatedState.cvData.workExperience?.length > 0 || 
-         updatedState.cvData.education?.length > 0);
+        ((updatedState.cvData.workExperience?.length ?? 0) > 0 || 
+         (updatedState.cvData.education?.length ?? 0) > 0);
       
       if (hasMinimumData && !showPreview) {
         setShowPreview(true);
@@ -108,7 +108,7 @@ export default function AIChatBuilder() {
 
   const handleSaveCV = () => {
     const fullCvData = getFullCvData();
-    const cvId = createCv(fullCvData);
+    createCv(fullCvData);
     navigate(`/my-cvs`);
   };
 
