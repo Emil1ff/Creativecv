@@ -107,7 +107,7 @@ export default function DesignTemplate({ cvData }: DesignTemplateProps) {
                           </div>
                         </div>
                         <p className="text-gray-700 mb-3">{exp.description}</p>
-                        {exp.achievements.length > 0 && (
+                        {exp.achievements && exp.achievements.length > 0 && (
                           <ul className="list-none space-y-1 text-sm text-gray-600">
                             {exp.achievements.map((achievement, achIndex) => (
                               <li key={achIndex} className="flex items-start">
@@ -193,7 +193,7 @@ export default function DesignTemplate({ cvData }: DesignTemplateProps) {
                       )}
                     </div>
                     <p className="text-gray-700 mb-4 text-sm">{project.description}</p>
-                    {project.technologies.length > 0 && (
+                    {project.technologies && project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, index) => (
                           <span 

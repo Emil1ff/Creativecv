@@ -95,7 +95,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                       </div>
                     </div>
                     <p className="text-gray-700 mb-3">{exp.description}</p>
-                    {exp.achievements.length > 0 && (
+                    {exp.achievements && exp.achievements.length > 0 && (
                       <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
                         {exp.achievements.map((achievement, index) => (
                           <li key={index}>{achievement}</li>
@@ -169,7 +169,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                       )}
                     </div>
                     <p className="text-gray-700 mb-3">{project.description}</p>
-                    {project.technologies.length > 0 && (
+                    {project.technologies && project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, index) => (
                           <span 

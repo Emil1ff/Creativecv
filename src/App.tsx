@@ -12,6 +12,8 @@ import MyCVs from "./pages/MyCVs/MyCVs";
 import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import Help from "./pages/Help/Help";
+import AIDemo from "./pages/AIDemo/AIDemo";
+import AIChatBuilder from "./pages/AIChatBuilder/AIChatBuilder";
 import ModernPreview from "./pages/TemplatePreview/ModernPreview";
 import ClassicPreview from "./pages/TemplatePreview/ClassicPreview";
 import CreativePreview from "./pages/TemplatePreview/CreativePreview";
@@ -23,6 +25,8 @@ import PreviewSlider from "./pages/TemplatePreview/PreviewSlider";
 import { NotificationContainer, useNotifications } from "./components/common/Notification";
 import { AuthProvider } from "./context/AuthContext";
 import { CvProvider } from "./context/CvContext";
+import { AIProvider } from "./context/AIContext";
+import { ConversationProvider } from "./context/ConversationContext";
 
 export default function App() {
   const { notifications, removeNotification } = useNotifications();
@@ -31,7 +35,9 @@ export default function App() {
     <>
       <AuthProvider>
         <CvProvider>
-          <Router>
+          <AIProvider>
+            <ConversationProvider>
+              <Router>
             <ScrollToTop />
             <NotificationContainer 
               notifications={notifications} 
@@ -51,6 +57,8 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/ai-demo" element={<AIDemo />} />
+            <Route path="/ai-builder" element={<AIChatBuilder />} />
           </Route>
 
           {/* Template Preview Pages - Without Layout */}
@@ -70,7 +78,9 @@ export default function App() {
           {/* Fallback Route */}
           <Route path="*" element={<NotFound />} />
             </Routes>
-          </Router>
+              </Router>
+            </ConversationProvider>
+          </AIProvider>
         </CvProvider>
       </AuthProvider>
     </>

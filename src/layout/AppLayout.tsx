@@ -9,23 +9,19 @@ const LayoutContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
       <AppSidebar />
       <Backdrop />
 
-      {/* Main Content */}
       <div
-        className={`transition-all duration-300 ease-in-out ${
+        className={`transition-all duration-300 ease-in-out h-screen overflow-hidden flex flex-col ${
           isExpanded || isHovered ? "lg:ml-64" : "lg:ml-20"
         }`}
       >
-        {/* Header */}
         <AppHeader />
         
-        {/* Page Content */}
-        <main className="min-h-[calc(100vh-64px)]">
-          <div className="p-4 mx-auto max-w-screen-2xl md:p-6 lg:p-8 ">
-            <div className=" grid-cols-12 gap-4 md:gap-6 contents">
+        <main className="flex-1 overflow-y-auto">
+          <div className="p-4 mx-auto max-w-screen-2xl md:p-6 lg:p-8 h-full">
+            <div className="grid-cols-12 gap-4 md:gap-6 contents h-full">
               <Outlet />
             </div>
           </div>
