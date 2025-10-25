@@ -1,9 +1,16 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY,
+// API key-in olub-olmadığını yoxla
+const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+
+if (!apiKey) {
+  console.error('GROQ_API_KEY is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+}
+
+const groq = apiKey ? new Groq({
+  apiKey: apiKey,
   dangerouslyAllowBrowser: true, // Frontend üçün
-});
+}) : null;
 
 export interface CVData {
   jobTitle: string;
@@ -56,6 +63,10 @@ Return ONLY valid JSON in this exact format:
 `;
 
   try {
+    if (!groq) {
+      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+    }
+    
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "llama-3.3-70b-versatile",
@@ -93,6 +104,10 @@ Return ONLY the improved text without any explanations, quotes, or additional fo
 `;
 
   try {
+    if (!groq) {
+      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+    }
+    
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "llama-3.3-70b-versatile",
@@ -118,6 +133,10 @@ Include both technical and soft skills relevant to the position.
 `;
 
   try {
+    if (!groq) {
+      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+    }
+    
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "llama-3.3-70b-versatile",
@@ -161,6 +180,10 @@ Return ONLY the cover letter text, no additional formatting or explanations.
 `;
 
   try {
+    if (!groq) {
+      throw new Error('Groq API is not configured. Please set VITE_GROQ_API_KEY environment variable.');
+    }
+    
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "llama-3.3-70b-versatile",
