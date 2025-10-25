@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Secrets scanning-i disable et - Frontend API key üçün normaldır
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
+
+# SPA üçün redirects
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
