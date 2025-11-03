@@ -298,3 +298,4 @@ export default function NatureTemplate({ cvData }: NatureTemplateProps) {
     </div>
   );
 }
+

@@ -296,3 +296,4 @@ export default function TechTemplate({ cvData }: TechTemplateProps) {
     </div>
   );
 }
+

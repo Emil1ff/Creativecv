@@ -146,41 +146,11 @@ export default function TemplateSelectionStep({ data, onUpdate }: TemplateSelect
           ))}
         </div>
 
-        {/* Template Comparison */}
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Template Features Comparison</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-2 font-medium text-gray-900 dark:text-white">Feature</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Modern</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Classic</th>
-                  <th className="text-center py-2 font-medium text-gray-900 dark:text-white">Creative</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="py-2 text-gray-700 dark:text-gray-300">ATS Friendly</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✗</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="py-2 text-gray-700 dark:text-gray-300">Color Options</td>
-                  <td className="text-center py-2">✓</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✓</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="py-2 text-gray-700 dark:text-gray-300">Creative Layout</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✗</td>
-                  <td className="text-center py-2">✓</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        {/* Minimal guidance instead of noisy comparison */}
+        <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Tip: Choose Modern for ATS-friendly roles, Classic for corporate, Creative/Design for portfolios.
+          </p>
         </div>
 
         {/* Tips */}

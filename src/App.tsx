@@ -27,6 +27,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CvProvider } from "./context/CvContext";
 import { AIProvider } from "./context/AIContext";
 import { ConversationProvider } from "./context/ConversationContext";
+import Landing from "./pages/Landing";
 
 export default function App() {
   const { notifications, removeNotification } = useNotifications();
@@ -47,7 +48,7 @@ export default function App() {
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
             {/* Main CV Pages */}
-            <Route index path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Home />} />
             <Route path="/create" element={<Create />} />
             <Route path="/templates" element={<Templates />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -70,6 +71,9 @@ export default function App() {
           <Route path="/preview/tech" element={<TechPreview />} />
           <Route path="/preview/nature" element={<NaturePreview />} />
           <Route path="/preview/design" element={<DesignPreview />} />
+
+          {/* Marketing Landing - Without Layout */}
+          <Route index path="/" element={<Landing />} />
 
           {/* Auth Layout */}
           <Route path="/signin" element={<SignIn />} />

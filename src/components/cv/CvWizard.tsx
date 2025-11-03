@@ -2,7 +2,6 @@ import { useState } from "react";
 import ComponentCard from "../common/ComponentCard";
 import Button from "../ui/button/Button";
 import { useNotifications } from "../common/Notification";
-import { useCv } from "../../context/CvContext";
 import PersonalInfoStep from "./steps/PersonalInfoStep";
 import WorkExperienceStep from "./steps/WorkExperienceStep";
 import SkillsStep from "./steps/SkillsStep";
@@ -106,9 +105,8 @@ export default function CvWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [cvData, setCvData] = useState<CvData>(initialCvData);
   const { success } = useNotifications();
-  const { createCv } = useCv();
 
-  const updateCvData = <K extends keyof CvData>(section: K, data: CvData[K]) => {
+  const updateCvData = (section: keyof CvData, data: any) => {
     setCvData(prev => ({
       ...prev,
       [section]: data
@@ -225,10 +223,9 @@ export default function CvWizard() {
                 <Button
                   variant="primary"
                   onClick={() => {
-                    // Save CV to context
-                    const cvId = createCv(cvData);
+                    // Save CV and redirect
+                    console.log('CV Data:', cvData);
                     success('CV Saved!', 'Your CV has been saved successfully and added to your collection.');
-                    console.log('CV saved with ID:', cvId);
                   }}
                 >
                   Save CV

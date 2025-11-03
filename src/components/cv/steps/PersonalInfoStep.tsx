@@ -2,6 +2,9 @@ import ComponentCard from "../../common/ComponentCard";
 import InputField from "../../form/input/InputField";
 import TextArea from "../../form/input/TextArea";
 import Label from "../../form/Label";
+import Button from "../../ui/button/Button";
+import { useState } from "react";
+import AITextEnhancer from "../../ai/AITextEnhancer";
 
 interface PersonalInfoData {
   firstName: string;
@@ -22,6 +25,8 @@ interface PersonalInfoStepProps {
 }
 
 export default function PersonalInfoStep({ data, onUpdate }: PersonalInfoStepProps) {
+  const [showEnhancer, setShowEnhancer] = useState(false);
+
   const updateField = (field: keyof PersonalInfoData, value: string) => {
     onUpdate({
       ...data,
@@ -149,6 +154,19 @@ export default function PersonalInfoStep({ data, onUpdate }: PersonalInfoStepPro
               rows={5}
               hint="Keep it concise but impactful. This is often the first thing employers read."
             />
+            <div className="mt-2 flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setShowEnhancer(true)} disabled={!data.summary.trim()}>
+                ✨ Improve with AI
+              </Button>
+            </div>
+            {showEnhancer && (
+              <AITextEnhancer
+                text={data.summary}
+                context="summary"
+                onEnhanced={(enhanced) => updateField('summary', enhanced)}
+                onClose={() => setShowEnhancer(false)}
+              />
+            )}
           </div>
         </div>
 

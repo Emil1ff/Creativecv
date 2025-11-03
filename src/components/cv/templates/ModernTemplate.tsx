@@ -5,7 +5,28 @@ interface ModernTemplateProps {
 }
 
 export default function ModernTemplate({ cvData }: ModernTemplateProps) {
-  const { personalInfo, workExperience, skills, education, certifications, projects } = cvData;
+  const personal = {
+    firstName: cvData.personalInfo?.firstName || "",
+    lastName: cvData.personalInfo?.lastName || "",
+    title: cvData.personalInfo?.title || "",
+    summary: cvData.personalInfo?.summary || "",
+    email: cvData.personalInfo?.email || "",
+    phone: cvData.personalInfo?.phone || "",
+    location: cvData.personalInfo?.location || "",
+    website: cvData.personalInfo?.website || "",
+    linkedin: cvData.personalInfo?.linkedin || "",
+    github: cvData.personalInfo?.github || "",
+  };
+
+  const work = Array.isArray(cvData.workExperience) ? cvData.workExperience : [];
+  const edu = Array.isArray(cvData.education) ? cvData.education : [];
+  const certs = Array.isArray(cvData.certifications) ? cvData.certifications : [];
+  const projs = Array.isArray(cvData.projects) ? cvData.projects : [];
+  const skillsSafe = {
+    technical: Array.isArray(cvData.skills?.technical) ? cvData.skills!.technical : [],
+    soft: Array.isArray(cvData.skills?.soft) ? cvData.skills!.soft : [],
+    languages: Array.isArray(cvData.skills?.languages) ? cvData.skills!.languages : [],
+  };
 
   return (
     <div className="bg-white text-gray-900 max-w-4xl mx-auto p-8" id="cv-content">
@@ -14,10 +35,10 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-2">
-              {personalInfo.firstName} {personalInfo.lastName}
+              {personal.firstName} {personal.lastName}
             </h1>
-            <p className="text-xl text-blue-100 mb-4">{personalInfo.title}</p>
-            <p className="text-blue-100 max-w-2xl">{personalInfo.summary}</p>
+            <p className="text-xl text-blue-100 mb-4">{personal.title}</p>
+            <p className="text-blue-100 max-w-2xl">{personal.summary}</p>
           </div>
           <div className="text-right">
             <div className="space-y-2 text-sm">
@@ -26,42 +47,42 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                {personalInfo.email}
+                {personal.email}
               </p>
               <p className="flex items-center">
                 <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                {personalInfo.phone}
+                {personal.phone}
               </p>
               <p className="flex items-center">
                 <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                {personalInfo.location}
+                {personal.location}
               </p>
-              {personalInfo.website && (
+              {personal.website && (
                 <p className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd" />
                   </svg>
-                  {personalInfo.website}
+                  {personal.website}
                 </p>
               )}
-              {personalInfo.linkedin && (
+              {personal.linkedin && (
                 <p className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd" />
                   </svg>
-                  {personalInfo.linkedin}
+                  {personal.linkedin}
                 </p>
               )}
-              {personalInfo.github && (
+              {personal.github && (
                 <p className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
                   </svg>
-                  {personalInfo.github}
+                  {personal.github}
                 </p>
               )}
             </div>
@@ -73,7 +94,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
         {/* Main Content */}
         <div className="w-full lg:w-[calc(66.667%-1.333rem)] space-y-8">
           {/* Work Experience */}
-          {workExperience.length > 0 && (
+          {work.length > 0 && (
             <section>
               <h2 className="text-2xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -82,7 +103,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Work Experience
               </h2>
               <div className="space-y-6">
-                {workExperience.map((exp) => (
+                {work.map((exp) => (
                   <div key={exp.id} className="border-l-4 border-blue-200 pl-6">
                     <div className="flex justify-between items-start mb-2">
                       <div>
@@ -109,7 +130,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
           )}
 
           {/* Education */}
-          {education.length > 0 && (
+          {edu.length > 0 && (
             <section>
               <h2 className="text-2xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -118,21 +139,21 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Education
               </h2>
               <div className="space-y-4">
-                {education.map((edu) => (
-                  <div key={edu.id} className="border-l-4 border-green-200 pl-6">
+                {edu.map((ed) => (
+                  <div key={ed.id} className="border-l-4 border-green-200 pl-6">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900">{edu.degree}</h3>
-                        <p className="text-green-600 font-medium">{edu.school}</p>
-                        <p className="text-gray-600 text-sm">{edu.location}</p>
+                        <h3 className="text-lg font-semibold text-gray-900">{ed.degree}</h3>
+                        <p className="text-green-600 font-medium">{ed.school}</p>
+                        <p className="text-gray-600 text-sm">{ed.location}</p>
                       </div>
                       <div className="text-right text-sm text-gray-600">
-                        <p>{edu.startDate} - {edu.endDate}</p>
-                        {edu.gpa && <p>GPA: {edu.gpa}</p>}
+                        <p>{ed.startDate} - {ed.endDate}</p>
+                        {ed.gpa && <p>GPA: {ed.gpa}</p>}
                       </div>
                     </div>
-                    {edu.description && (
-                      <p className="text-gray-700 text-sm">{edu.description}</p>
+                    {ed.description && (
+                      <p className="text-gray-700 text-sm">{ed.description}</p>
                     )}
                   </div>
                 ))}
@@ -141,7 +162,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
           )}
 
           {/* Projects */}
-          {projects.length > 0 && (
+          {projs.length > 0 && (
             <section>
               <h2 className="text-2xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -150,7 +171,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Projects
               </h2>
               <div className="space-y-4">
-                {projects.map((project) => (
+                {projs.map((project) => (
                   <div key={project.id} className="border-l-4 border-purple-200 pl-6">
                     <div className="flex justify-between items-start mb-2">
                       <div>
@@ -191,7 +212,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
         {/* Sidebar */}
         <div className="w-full lg:w-[calc(33.333%-1.333rem)] space-y-8">
           {/* Technical Skills */}
-          {skills.technical.length > 0 && (
+          {skillsSafe.technical.length > 0 && (
             <section>
               <h3 className="text-xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -200,7 +221,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Technical Skills
               </h3>
               <div className="space-y-3">
-                {skills.technical.map((skill, index) => (
+                {skillsSafe.technical.map((skill, index) => (
                   <div key={index}>
                     <div className="flex justify-between items-center mb-1">
                       <span className="text-sm font-medium text-gray-900">{skill.name}</span>
@@ -219,7 +240,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
           )}
 
           {/* Soft Skills */}
-          {skills.soft.length > 0 && (
+          {skillsSafe.soft.length > 0 && (
             <section>
               <h3 className="text-xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -228,7 +249,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Soft Skills
               </h3>
               <div className="space-y-3">
-                {skills.soft.map((skill, index) => (
+                {skillsSafe.soft.map((skill, index) => (
                   <div key={index}>
                     <div className="flex justify-between items-center mb-1">
                       <span className="text-sm font-medium text-gray-900">{skill.name}</span>
@@ -247,7 +268,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
           )}
 
           {/* Languages */}
-          {skills.languages.length > 0 && (
+          {skillsSafe.languages.length > 0 && (
             <section>
               <h3 className="text-xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -256,7 +277,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Languages
               </h3>
               <div className="space-y-2">
-                {skills.languages.map((language, index) => (
+                {skillsSafe.languages.map((language, index) => (
                   <div key={index} className="flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-900">{language.name}</span>
                     <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
@@ -269,7 +290,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
           )}
 
           {/* Certifications */}
-          {certifications.length > 0 && (
+          {certs.length > 0 && (
             <section>
               <h3 className="text-xl font-bold text-blue-600 mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -278,7 +299,7 @@ export default function ModernTemplate({ cvData }: ModernTemplateProps) {
                 Certifications
               </h3>
               <div className="space-y-3">
-                {certifications.map((cert) => (
+                {certs.map((cert) => (
                   <div key={cert.id} className="bg-gray-50 p-3 rounded-lg">
                     <h4 className="font-medium text-gray-900 text-sm">{cert.name}</h4>
                     <p className="text-xs text-gray-600">{cert.issuer}</p>

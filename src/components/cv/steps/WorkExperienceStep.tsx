@@ -4,6 +4,8 @@ import InputField from "../../form/input/InputField";
 import TextArea from "../../form/input/TextArea";
 import Label from "../../form/Label";
 import Button from "../../ui/button/Button";
+import AITextEnhancer from "../../ai/AITextEnhancer";
+import { useAI } from "../../../context/AIContext";
 
 interface WorkExperience {
   id: string;
@@ -24,6 +26,8 @@ interface WorkExperienceStepProps {
 
 export default function WorkExperienceStep({ data, onUpdate }: WorkExperienceStepProps) {
   const [newAchievement, setNewAchievement] = useState<{ [key: string]: string }>({});
+  const [enhanceForExpId, setEnhanceForExpId] = useState<string | null>(null);
+  const { enhanceText, isGenerating } = useAI();
 
   const addExperience = () => {
     const newExp: WorkExperience = {
@@ -62,6 +66,23 @@ export default function WorkExperienceStep({ data, onUpdate }: WorkExperienceSte
       onUpdate(updated);
       setNewAchievement({ ...newAchievement, [expId]: "" });
     }
+  };
+  const suggestAchievements = async (expId: string) => {
+    const exp = data.find(e => e.id === expId);
+    if (!exp) return;
+    const base = `${exp.position} at ${exp.company}. Responsibilities: ${exp.description}`;
+    const result = await enhanceText({
+      text: `Generate 3 impactful, quantified resume bullet achievements (max 18 words each) based on: ${base}. Return bullets separated by \n without numbering.`,
+      context: 'experience'
+    });
+    const bullets = result
+      .split('\n')
+      .map(b => b.replace(/^[-•\d\.\s]+/, '').trim())
+      .filter(Boolean);
+    const updated = data.map(expItem =>
+      expItem.id === expId ? { ...expItem, achievements: [...expItem.achievements, ...bullets] } : expItem
+    );
+    onUpdate(updated);
   };
 
   const removeAchievement = (expId: string, achievementIndex: number) => {
@@ -180,6 +201,22 @@ export default function WorkExperienceStep({ data, onUpdate }: WorkExperienceSte
                   placeholder="Describe your main responsibilities and daily tasks..."
                   rows={3}
                 />
+                <div className="mt-2 flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => setEnhanceForExpId(exp.id)} disabled={!exp.description.trim()}>
+                    ✨ Improve description with AI
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => suggestAchievements(exp.id)} disabled={isGenerating || !(exp.position && exp.company)}>
+                    🧠 Suggest 3 achievements
+                  </Button>
+                </div>
+                {enhanceForExpId === exp.id && (
+                  <AITextEnhancer
+                    text={exp.description}
+                    context="experience"
+                    onEnhanced={(enhanced) => updateExperience(exp.id, 'description', enhanced)}
+                    onClose={() => setEnhanceForExpId(null)}
+                  />
+                )}
               </div>
 
               <div>
